@@ -28,6 +28,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -35,6 +36,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.openmaps.saas.location.LocationRepository
@@ -72,6 +76,7 @@ import org.maplibre.android.style.sources.GeoJsonSource
 @Composable
 fun MapScreen(saasRepo: SaasRepository) {
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
     val scope = rememberCoroutineScope()
     val snackbar = remember { SnackbarHostState() }
 
@@ -143,11 +148,15 @@ fun MapScreen(saasRepo: SaasRepository) {
             ) { Text("Search") }
         }
 
-        Card(Modifier.padding(horizontal = 12.dp)) {
+        Card(
+            Modifier
+                .padding(horizontal = 12.dp)
+                .weight(1f)
+        ) {
             AndroidView(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f),
+                    .fillMaxSize(),
                 factory = { ctx -> createMapView(ctx).also { mapViewRef = it } },
                 update = { /* no-op */ }
             )
@@ -238,6 +247,29 @@ fun MapScreen(saasRepo: SaasRepository) {
         }
 
         SnackbarHost(hostState = snackbar, modifier = Modifier.padding(12.dp))
+    }
+
+    DisposableEffect(lifecycleOwner, mapViewRef) {
+        val mapView = mapViewRef
+        if (mapView == null) {
+            onDispose { }
+        } else {
+            val observer = LifecycleEventObserver { _, event ->
+                when (event) {
+                    Lifecycle.Event.ON_START -> mapView.onStart()
+                    Lifecycle.Event.ON_RESUME -> mapView.onResume()
+                    Lifecycle.Event.ON_PAUSE -> mapView.onPause()
+                    Lifecycle.Event.ON_STOP -> mapView.onStop()
+                    Lifecycle.Event.ON_DESTROY -> mapView.onDestroy()
+                    else -> Unit
+                }
+            }
+            lifecycleOwner.lifecycle.addObserver(observer)
+            onDispose {
+                lifecycleOwner.lifecycle.removeObserver(observer)
+                mapView.onDestroy()
+            }
+        }
     }
 }
 
