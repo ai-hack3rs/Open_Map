@@ -1,0 +1,3 @@
+ALIAS=openmaps
+STOREPASS=TZy3qFhgaolbC5dUP5qevvqa
+KEYPASS=QQIurmJqpUjj0PtjbNmn1idt
