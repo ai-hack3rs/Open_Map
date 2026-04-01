@@ -42,15 +42,15 @@ import com.openmaps.saas.model.LatLng
 import com.openmaps.saas.model.PlaceResult
 import com.openmaps.saas.net.NominatimApi
 import com.openmaps.saas.net.OsrmApi
-import com.openmaps.saas.saas.Feature
+import com.openmaps.saas.saas.Feature as SaasFeature
 import com.openmaps.saas.saas.SaasRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.mapbox.geojson.Feature
-import com.mapbox.geojson.FeatureCollection
-import com.mapbox.geojson.LineString
-import com.mapbox.geojson.Point
+import org.maplibre.geojson.Feature as GeoFeature
+import org.maplibre.geojson.FeatureCollection
+import org.maplibre.geojson.LineString
+import org.maplibre.geojson.Point
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.geometry.LatLng as MlLatLng
 import org.maplibre.android.location.LocationComponentActivationOptions
@@ -196,7 +196,7 @@ fun MapScreen(saasRepo: SaasRepository) {
                                 return@Button
                             }
 
-                            if (!saasRepo.hasFeature(Feature.Routing)) {
+                            if (!saasRepo.hasFeature(SaasFeature.Routing)) {
                                 scope.launch { snackbar.showSnackbar("Routing is Pro. Tap Upgrade.") }
                                 return@Button
                             }
@@ -300,7 +300,7 @@ private fun dropPin(mapView: MapView?, point: LatLng) {
             val source = style.getSourceAs<GeoJsonSource>(PIN_SOURCE_ID) ?: return@let
             source.setGeoJson(
                 FeatureCollection.fromFeature(
-                    Feature.fromGeometry(Point.fromLngLat(point.lon, point.lat))
+                    GeoFeature.fromGeometry(Point.fromLngLat(point.lon, point.lat))
                 )
             )
         }
@@ -315,7 +315,7 @@ private fun drawRoute(mapView: MapView?, points: List<LatLng>) {
             val coords = points.map { Point.fromLngLat(it.lon, it.lat) }
             val line = LineString.fromLngLats(coords)
             style.getSourceAs<GeoJsonSource>(ROUTE_SOURCE_ID)?.setGeoJson(
-                FeatureCollection.fromFeature(Feature.fromGeometry(line))
+                FeatureCollection.fromFeature(GeoFeature.fromGeometry(line))
             )
         }
     }
