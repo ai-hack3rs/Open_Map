@@ -1,0 +1,38 @@
+.gradle
+/build
+!/gradle/wrapper/gradle-wrapper.jar
+!**/src/main/resources/
+!**/src/test/resources/
+
+### Android Studio ###
+.idea
+*.iml
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/navEditor.xml
+.idea/vcs.xml
+.idea/runConfigurations.xml
+.idea/inspectionProfiles/
+.idea/deploymentTargetSelector.xml
+
+### Gradle ###
+.gradle-dist
+.gradle
+build/
+local.properties
+.attach_pid*
+*~
+*.swp
+*.swo
+.DS_Store
+captures/
+.externalNativeBuild
+.cxx
+/google-services.json
+
+### NDk ###
+obj/
+libs/
