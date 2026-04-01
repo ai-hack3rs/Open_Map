@@ -22,7 +22,8 @@ jobs:
           cache: 'npm'
 
       - name: Configure Node memory
-        run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
+        run: export NODE_OPTIONS=--max-old-space-size=4096
+        shell: bash
 
       - name: Clear cache and reinstall
         run: |
@@ -37,10 +38,13 @@ jobs:
           java-version: "17"
           cache: gradle
 
+      - name: Clear Metro cache
+        run: rm -rf /tmp/metro-cache ~/.metro
+
       - name: Prebuild Android
         env:
           NODE_OPTIONS: --max-old-space-size=4096
-        run: npx expo prebuild --platform android --clean
+        run: npx expo prebuild --platform android --clean --verbose
 
       - name: Validate signing secrets
         run: |
