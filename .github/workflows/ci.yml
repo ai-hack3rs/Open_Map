@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
       - name: Checkout
@@ -24,10 +26,6 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-
-      - name: Configure Node memory
-        run: export NODE_OPTIONS=--max-old-space-size=4096
-        shell: bash
 
       - name: Clear cache and reinstall
         run: |
@@ -46,13 +44,9 @@ jobs:
         run: rm -rf /tmp/metro-cache ~/.metro
 
       - name: Prebuild Android
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
         run: npx expo prebuild --platform android --clean --verbose
 
       - name: Gradle build (Debug)
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
         run: cd android && ./gradlew assembleDebug
 
       - name: Upload APK (Debug)

@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
       - name: Checkout
@@ -20,10 +22,6 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-
-      - name: Configure Node memory
-        run: export NODE_OPTIONS=--max-old-space-size=4096
-        shell: bash
 
       - name: Clear cache and reinstall
         run: |
@@ -42,8 +40,6 @@ jobs:
         run: rm -rf /tmp/metro-cache ~/.metro
 
       - name: Prebuild Android
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
         run: npx expo prebuild --platform android --clean --verbose
 
       - name: Validate signing secrets
@@ -63,7 +59,6 @@ jobs:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          NODE_OPTIONS: --max-old-space-size=4096
         run: |
           cd android && ./gradlew assembleRelease bundleRelease
 
