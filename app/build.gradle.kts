@@ -9,6 +9,15 @@ android {
     namespace = "com.openmaps.saas"
     compileSdk = 35
 
+    val keystorePath = System.getenv("ANDROID_KEYSTORE_PATH")
+    val keystorePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+    val signingKeyAlias = System.getenv("ANDROID_KEY_ALIAS")
+    val signingKeyPassword = System.getenv("ANDROID_KEY_PASSWORD")
+    val hasReleaseSigning = !keystorePath.isNullOrBlank() &&
+        !keystorePassword.isNullOrBlank() &&
+        !signingKeyAlias.isNullOrBlank() &&
+        !signingKeyPassword.isNullOrBlank()
+
     defaultConfig {
         applicationId = "com.openmaps.saas"
         minSdk = 26
@@ -28,6 +37,26 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("release") {
+                storeFile = file(keystorePath!!)
+                storePassword = keystorePassword
+                keyAlias = signingKeyAlias
+                keyPassword = signingKeyPassword
+            }
+        }
+    }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
+        }
     }
 
     packaging {

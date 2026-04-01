@@ -30,6 +30,11 @@ If `./gradlew` downloads Gradle on first run, that’s expected (this repo boots
 
 - **CI**: runs on every push/PR, builds `assembleDebug`, uploads the debug APK as an artifact.
 - **Release**: push a tag like `v0.1.0` to build `assembleRelease` + `bundleRelease` and publish a GitHub Release with the APK/AAB attached.
+- **Signed release setup (Option C)**: add these GitHub repository secrets:
+  - `ANDROID_KEYSTORE_BASE64` (base64 of your `.jks` file)
+  - `ANDROID_KEYSTORE_PASSWORD`
+  - `ANDROID_KEY_ALIAS`
+  - `ANDROID_KEY_PASSWORD`
 
 ## Notes on “free APIs”
 
