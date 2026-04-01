@@ -44,7 +44,7 @@ jobs:
         run: rm -rf /tmp/metro-cache ~/.metro
 
       - name: Prebuild Android
-        run: npx expo prebuild --platform android --clean --verbose
+        run: npx expo prebuild --platform android --clean
 
       - name: Gradle build (Debug)
         run: cd android && ./gradlew assembleDebug

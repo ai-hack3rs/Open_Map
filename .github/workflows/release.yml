@@ -40,7 +40,7 @@ jobs:
         run: rm -rf /tmp/metro-cache ~/.metro
 
       - name: Prebuild Android
-        run: npx expo prebuild --platform android --clean --verbose
+        run: npx expo prebuild --platform android --clean
 
       - name: Validate signing secrets
         run: |
