@@ -25,18 +25,6 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      # Optional: enable signing by providing these secrets:
-      # - ANDROID_KEYSTORE_BASE64  (base64 of your .jks)
-      # - ANDROID_KEYSTORE_PASSWORD
-      # - ANDROID_KEY_ALIAS
-      # - ANDROID_KEY_PASSWORD
-      #
-      # And adding signing config in app/build.gradle.kts.
-      - name: Decode keystore (optional)
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
-        run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > release.jks
-
       - name: Build APK/AAB (Release)
         run: |
           ./gradlew :app:assembleRelease :app:bundleRelease
