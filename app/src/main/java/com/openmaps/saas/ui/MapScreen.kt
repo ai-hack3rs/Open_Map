@@ -323,7 +323,7 @@ private fun drawRoute(mapView: MapView?, points: List<LatLng>) {
 
 private fun ensureOverlayLayers(style: Style) {
     if (style.getSource(ROUTE_SOURCE_ID) == null) {
-        style.addSource(GeoJsonSource(ROUTE_SOURCE_ID, FeatureCollection.fromFeatures(emptyArray())))
+        style.addSource(GeoJsonSource(ROUTE_SOURCE_ID, FeatureCollection.fromFeatures(emptyList())))
     }
     if (style.getLayer(ROUTE_LAYER_ID) == null) {
         style.addLayer(
@@ -337,7 +337,7 @@ private fun ensureOverlayLayers(style: Style) {
     }
 
     if (style.getSource(PIN_SOURCE_ID) == null) {
-        style.addSource(GeoJsonSource(PIN_SOURCE_ID, FeatureCollection.fromFeatures(emptyArray())))
+        style.addSource(GeoJsonSource(PIN_SOURCE_ID, FeatureCollection.fromFeatures(emptyList())))
     }
     if (style.getLayer(PIN_LAYER_ID) == null) {
         style.addLayer(
