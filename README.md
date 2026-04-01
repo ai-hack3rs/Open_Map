@@ -1,55 +1,50 @@
-# OpenMaps SaaS (Android)
+# Welcome to your Expo app 👋
 
-Google-Maps-style Android app built on **free/open APIs**:
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-- **Map rendering**: OpenStreetMap raster tiles (via MapLibre)
-- **Place search (geocoding)**: Nominatim (OpenStreetMap)
-- **Routing**: OSRM public demo server
+## Get started
 
-This repo is structured to be **SaaS-ready** (feature gating + account/subscription interfaces), but ships with **local stub implementations** so it runs without paid services.
+1. Install dependencies
 
-## Requirements
+   ```bash
+   npm install
+   ```
 
-- Android Studio (recommended)
-- JDK 17
-- Android SDK installed via Android Studio
+2. Start the app
 
-## Run
+   ```bash
+   npx expo start
+   ```
 
-From the project root:
+In the output, you'll find options to open the app in a
+
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+
+## Get a fresh project
+
+When you're ready, run:
 
 ```bash
-./gradlew :app:installDebug
+npm run reset-project
 ```
 
-Or open the folder in Android Studio and press Run.
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-If `./gradlew` downloads Gradle on first run, that’s expected (this repo bootstraps Gradle into `./.gradle-dist/`).
+## Learn more
 
-## GitHub Actions (build + release)
+To learn more about developing your project with Expo, look at the following resources:
 
-- **CI**: runs on every push/PR, builds `assembleDebug`, uploads the debug APK as an artifact.
-- **Release**: push a tag like `v0.1.0` to build `assembleRelease` + `bundleRelease` and publish a GitHub Release with the APK/AAB attached.
-- **Signed release setup (Option C)**: add these GitHub repository secrets:
-  - `ANDROID_KEYSTORE_BASE64` (base64 of your `.jks` file)
-  - `ANDROID_KEYSTORE_PASSWORD`
-  - `ANDROID_KEY_ALIAS`
-  - `ANDROID_KEY_PASSWORD`
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Notes on “free APIs”
+## Join the community
 
-- **OpenStreetMap tiles** are community infrastructure; do not abuse them. For production SaaS, host your own tiles or use a free-tier map provider.
-- **Nominatim** usage policy is strict; for production, host your own Nominatim or use a provider.
-- **OSRM demo server** is for testing; for production, host your own OSRM.
+Join our community of developers creating universal apps.
 
-## What’s included
-
-- Map view with zoom/rotate
-- My-location button (runtime permission flow)
-- Search bar (Nominatim) + result list
-- Tap-to-drop pin
-- Route from current location to selected place (OSRM) + polyline overlay
-- “SaaS” layer (interfaces + in-memory implementation):
-  - Account state
-  - Feature flags (e.g., routing requires “Pro”)
-
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.

@@ -1,20 +1,43 @@
-.gradle/
-.gradle-dist/
-build/
-captures/
-.externalNativeBuild/
-.cxx/
-local.properties
-.idea/
-*.iml
-.DS_Store
-*.swp
-*.swo
-*~
-.attach_pid*
-obj/
-libs/
-/google-services.json
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
 *.jks
-signing-info.txt
-openmaps-crash.log
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+app-example
+
+# generated native folders
+/ios
+/android
