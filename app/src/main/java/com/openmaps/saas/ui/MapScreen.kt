@@ -57,9 +57,6 @@ import org.maplibre.geojson.LineString
 import org.maplibre.geojson.Point
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.geometry.LatLng as MlLatLng
-import org.maplibre.android.location.LocationComponentActivationOptions
-import org.maplibre.android.location.modes.CameraMode
-import org.maplibre.android.location.modes.RenderMode
 import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.layers.CircleLayer
@@ -289,28 +286,20 @@ private fun createMapView(context: Context): MapView {
     )
     mapView.onCreate(null)
     mapView.getMapAsync { map ->
-        map.setStyle(Style.Builder().fromUri("asset://osm_raster_style.json")) { style ->
-            ensureOverlayLayers(style)
-            // Enable location if permission already granted (Compose flow requests too)
-            val locComponent = map.locationComponent
-            try {
-                locComponent.activateLocationComponent(
-                    LocationComponentActivationOptions.builder(context, style).build()
-                )
-                locComponent.isLocationComponentEnabled = true
-                locComponent.cameraMode = CameraMode.TRACKING
-                locComponent.renderMode = RenderMode.COMPASS
-            } catch (_: Throwable) {
-                // permission might not be granted yet
+        try {
+            map.setStyle(Style.Builder().fromUri("asset://osm_raster_style.json")) { style ->
+                ensureOverlayLayers(style)
             }
-        }
 
-        map.uiSettings.apply {
-            isCompassEnabled = true
-            isRotateGesturesEnabled = true
-            isTiltGesturesEnabled = false
-            isAttributionEnabled = true
-            isLogoEnabled = false
+            map.uiSettings.apply {
+                isCompassEnabled = true
+                isRotateGesturesEnabled = true
+                isTiltGesturesEnabled = false
+                isAttributionEnabled = true
+                isLogoEnabled = false
+            }
+        } catch (_: Throwable) {
+            // Prevent hard crash if map native/style initialization fails on specific devices.
         }
     }
     return mapView
