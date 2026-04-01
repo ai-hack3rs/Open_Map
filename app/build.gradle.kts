@@ -93,6 +93,6 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
 
     // MapLibre GL (free/open-source maps)
-    implementation("org.maplibre.gl:android-sdk:11.4.0")
+    implementation("org.maplibre.gl:android-sdk:11.3.0")
 }
 

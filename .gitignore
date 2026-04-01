@@ -17,3 +17,4 @@ libs/
 /google-services.json
 *.jks
 signing-info.txt
+openmaps-crash.log

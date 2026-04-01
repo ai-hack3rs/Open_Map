@@ -58,6 +58,7 @@ import org.maplibre.geojson.Point
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.geometry.LatLng as MlLatLng
 import org.maplibre.android.maps.MapView
+import org.maplibre.android.maps.MapLibreMapOptions
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.layers.CircleLayer
 import org.maplibre.android.style.layers.LineLayer
@@ -279,7 +280,11 @@ private const val PIN_LAYER_ID = "pin-layer"
 
 @SuppressLint("ClickableViewAccessibility")
 private fun createMapView(context: Context): MapView {
-    val mapView = MapView(context)
+    val mapOptions = MapLibreMapOptions.createFromAttributes(context).apply {
+        // TextureView avoids a class of GLSurfaceView/driver crashes (SIGSEGV) on some devices.
+        textureMode(true)
+    }
+    val mapView = MapView(context, mapOptions)
     mapView.layoutParams = ViewGroup.LayoutParams(
         ViewGroup.LayoutParams.MATCH_PARENT,
         ViewGroup.LayoutParams.MATCH_PARENT
