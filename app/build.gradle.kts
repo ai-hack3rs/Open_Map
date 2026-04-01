@@ -67,6 +67,6 @@ dependencies {
     implementation("org.maplibre.gl:android-sdk:11.4.0")
 
     // GeoJSON models used by MapLibre style sources
-    implementation("com.mapbox.mapboxsdk:mapbox-sdk-geojson:7.10.0")
+    implementation("com.mapbox.mapboxsdk:mapbox-sdk-geojson:5.8.0")
 }
 
