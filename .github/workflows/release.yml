@@ -21,6 +21,9 @@ jobs:
           node-version: 18
           cache: 'npm'
 
+      - name: Configure Node memory
+        run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
+
       - name: Clear cache and reinstall
         run: |
           rm -rf node_modules package-lock.json
@@ -35,7 +38,9 @@ jobs:
           cache: gradle
 
       - name: Prebuild Android
-        run: npx expo prebuild --platform android
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: npx expo prebuild --platform android --clean
 
       - name: Validate signing secrets
         run: |
