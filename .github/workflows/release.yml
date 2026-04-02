@@ -20,14 +20,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: 'npm'
 
-      - name: Clear cache and reinstall
-        run: |
-          rm -rf node_modules package-lock.json
-          npm cache clean --force
-          npm install
+      - name: Install dependencies
+        run: npm ci
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
