@@ -1,56 +1,53 @@
 import React from 'react';
-import { StyleSheet, View, ViewStyle, Platform } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { BlurView } from 'expo-blur';
-import Animated from 'react-native-reanimated';
+import { APP_THEME } from '../constants/mapConfig';
 
 interface GlassPanelProps {
   children: React.ReactNode;
-  style?: ViewStyle | any;
+  style?: ViewStyle;
   intensity?: number;
-  animatedStyle?: any;
+  tint?: 'light' | 'dark' | 'default' | 'systemThickMaterialDark';
 }
 
-const GlassPanel: React.FC<GlassPanelProps> = ({ children, style, intensity = 40, animatedStyle }) => {
-  const Container = animatedStyle ? Animated.View : View;
-
+export const GlassPanel: React.FC<GlassPanelProps> = ({
+  children,
+  style,
+  intensity = 30, // Moderate blur intensity
+  tint = 'dark',
+}) => {
   return (
-    <Container style={[styles.outerContainer, animatedStyle]}>
+    <View style={[styles.shadowContainer, style]}>
+      {/* 
+        experimentalBlurMethod is supported in newer Expo versions (like the SDK 50+)
+        to enable highly accurate glassmorphism on Android. Look for "dimezisBlurView".
+      */}
       <BlurView
         intensity={intensity}
-        tint="dark"
-        experimentalBlurMethod="dimezisBlurView" // Better performance/quality on Android
-        style={[styles.blurContainer, style]}
+        tint={tint}
+        experimentalBlurMethod="dimezisBlurView"
+        style={styles.blurContainer}
       >
-        {children}
+        <View style={styles.contentContainer}>{children}</View>
       </BlurView>
-    </Container>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  outerContainer: {
-    borderRadius: 24,
-    // Antigravity Shadow
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 20 },
-        shadowOpacity: 0.4,
-        shadowRadius: 30,
-      },
-      android: {
-        elevation: 15,
-      },
-    }),
-    overflow: 'hidden',
+  shadowContainer: {
+    ...APP_THEME.shadows.floating,
+    borderRadius: 24, // Consistent roundness
+    overflow: 'visible', // Let the shadow leak out
   },
   blurContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.12)',
     borderRadius: 24,
+    overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.25)',
-    padding: 16,
+    borderColor: APP_THEME.colors.glassBorder,
+    backgroundColor: APP_THEME.colors.glassBackground, // fallback semi-transparent layer
+  },
+  contentContainer: {
+    flexDirection: 'column',
   },
 });
-
-export default GlassPanel;
