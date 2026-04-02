@@ -1,3 +1,7 @@
+// Free, no-API-key vector tile style from CARTO (OpenStreetMap data)
+export const CARTO_DARK_STYLE_URL =
+  'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
+
 export const APP_THEME = {
   colors: {
     glassBackground: 'rgba(255, 255, 255, 0.1)',
