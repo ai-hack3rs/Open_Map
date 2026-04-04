@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import { FloatingSearch } from '../FloatingSearch';
-import { View } from 'react-native';
 
 // Mock dependencies
 jest.mock('react-native-safe-area-context', () => ({
@@ -13,8 +12,8 @@ jest.mock('../../hooks/useAntigravity', () => ({
 }));
 
 jest.mock('lucide-react-native', () => {
-  const React = require('react');
-  const { View } = require('react-native');
+  const React = require('react'); // eslint-disable-line @typescript-eslint/no-require-imports
+  const { View } = require('react-native'); // eslint-disable-line @typescript-eslint/no-require-imports
   return {
     Search: () => <View testID="search-icon" />,
     User: () => <View testID="user-icon" />,
@@ -22,8 +21,8 @@ jest.mock('lucide-react-native', () => {
 });
 
 jest.mock('../GlassPanel', () => {
-  const React = require('react');
-  const { View } = require('react-native');
+  const React = require('react'); // eslint-disable-line @typescript-eslint/no-require-imports
+  const { View } = require('react-native'); // eslint-disable-line @typescript-eslint/no-require-imports
   return {
     GlassPanel: ({ children, testID }: any) => <View testID={testID || "glass-panel"}>{children}</View>,
   };
