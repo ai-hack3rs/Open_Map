@@ -7,7 +7,7 @@ import { useAntigravity } from '../hooks/useAntigravity';
 import { APP_THEME } from '../constants/mapConfig';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const StatCard = ({ icon: Icon, label, value, color }: { icon: any; label: string; value: string; color: string }) => (
+export const StatCard = ({ icon: Icon, label, value, color }: { icon: any; label: string; value: string; color: string }) => (
   <View style={styles.statCard}>
     <View style={[styles.iconBox, { backgroundColor: color + '33' }]}>
       <Icon color={color} size={20} />
