@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { Truck, DollarSign, Clock, ChevronRight } from 'lucide-react-native';
@@ -38,11 +38,16 @@ export const SaaSBottomSheet = () => {
   // Very slow and gentle floating for the large bottom sheet
   const floatingStyle = useAntigravity(6, 4000, 200);
 
+  const bottomStyle = useMemo(
+    () => ({ bottom: Math.max(insets.bottom, 20) + 20 }),
+    [insets.bottom]
+  );
+
   return (
     <Animated.View
       style={[
         styles.container,
-        { bottom: Math.max(insets.bottom, 20) + 20 },
+        bottomStyle,
         floatingStyle,
       ]}
     >
