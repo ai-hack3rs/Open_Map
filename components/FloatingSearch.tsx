@@ -14,6 +14,7 @@ export const FloatingSearch = () => {
 
   return (
     <Animated.View
+      testID="floating-search-container"
       style={[
         styles.container,
         { top: Math.max(insets.top, 20) + 10 },
