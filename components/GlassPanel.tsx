@@ -8,6 +8,7 @@ interface GlassPanelProps {
   style?: ViewStyle;
   intensity?: number;
   tint?: 'light' | 'dark' | 'default' | 'systemThickMaterialDark';
+  testID?: string;
 }
 
 export const GlassPanel: React.FC<GlassPanelProps> = ({
@@ -15,9 +16,10 @@ export const GlassPanel: React.FC<GlassPanelProps> = ({
   style,
   intensity = 30, // Moderate blur intensity
   tint = 'dark',
+  testID,
 }) => {
   return (
-    <View style={[styles.shadowContainer, style]}>
+    <View style={[styles.shadowContainer, style]} testID={testID}>
       {/* 
         experimentalBlurMethod is supported in newer Expo versions (like the SDK 50+)
         to enable highly accurate glassmorphism on Android. Look for "dimezisBlurView".
