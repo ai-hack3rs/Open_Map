@@ -18,7 +18,7 @@ export const useAntigravity = (
 
   useEffect(() => {
     // Start animation loop with a slight delay if specified (useful for staggering)
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       translateY.value = withRepeat(
         withSequence(
           withTiming(-amplitude, {
@@ -34,6 +34,8 @@ export const useAntigravity = (
         true // Reverse
       );
     }, delay);
+
+    return () => clearTimeout(timeoutId);
   }, [amplitude, duration, delay, translateY]);
 
   const animatedStyle = useAnimatedStyle(() => {
