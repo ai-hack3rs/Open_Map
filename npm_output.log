@@ -1,0 +1,47 @@
+
+> open_map@2.0.0 web
+> expo start --web
+
+Starting project at /app
+React Compiler enabled
+Starting Metro Bundler
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓░░░░ 76.8% ( 928/2755)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓▓▓▓░░░░ 80.9% (2035/2790)
+λ Bundling failed 4088ms node_modules/expo-router/node/render.js (2890 modules)
+Web Bundling failed 4109ms node_modules/expo-router/entry.js (2965 modules)
+
+Metro error: Unable to resolve module react-native-svg from /app/node_modules/lucide-react-native/dist/esm/Icon.js: react-native-svg could not be found within the project or in these directories:
+  node_modules
+[0m [90m  7 |[39m
+ [90m  8 |[39m [36mimport[39m { forwardRef[33m,[39m createElement } [36mfrom[39m [32m'react'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  9 |[39m [36mimport[39m [33m*[39m [36mas[39m [33mNativeSvg[39m [36mfrom[39m [32m'react-native-svg'[39m[33m;[39m
+ [90m    |[39m                             [31m[1m^[22m[39m
+ [90m 10 |[39m [36mimport[39m defaultAttributes[33m,[39m { childDefaultAttributes } [36mfrom[39m [32m'./defaultAttributes.js'[39m[33m;[39m
+ [90m 11 |[39m [36mimport[39m { useLucideContext } [36mfrom[39m [32m'./context.js'[39m[33m;[39m
+ [90m 12 |[39m[0m
+
+Import stack:
+
+ node_modules/lucide-react-native/dist/esm/Icon.js
+ | import "react-native-svg"
+
+ node_modules/lucide-react-native/dist/esm/lucide-react-native.js
+ | import "./Icon.js"
+
+ components/FloatingSearch.tsx
+ | import "lucide-react-native"
+
+ app/index.tsx
+ | import "../components/FloatingSearch"
+
+ app (require.context)
+
+
+Call Stack
+  <unknown> (node_modules/lucide-react-native/dist/esm/Icon.js:0)
+Web node_modules/expo-router/_error.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 88.8% (261/277)
+Web Bundled 4912ms node_modules/expo-router/_error.js (323 modules)
+ LOG  [web] Logs will appear in the browser console
