@@ -6,6 +6,11 @@ import { CARTO_DARK_STYLE_URL } from '../constants/mapConfig';
 // Suppress the default MapLibre telemetry opt-in prompt
 MapLibreGL.setAccessToken(null);
 
+const DEFAULT_CAMERA_SETTINGS = {
+  centerCoordinate: [-122.4324, 37.78825],
+  zoomLevel: 12,
+} as const;
+
 export const MapBase = () => {
   return (
     <View style={styles.container}>
@@ -17,10 +22,7 @@ export const MapBase = () => {
         compassEnabled={false}
       >
         <MapLibreGL.Camera
-          defaultSettings={{
-            centerCoordinate: [-122.4324, 37.78825],
-            zoomLevel: 12,
-          }}
+          defaultSettings={DEFAULT_CAMERA_SETTINGS}
         />
         <MapLibreGL.UserLocation
           visible={true}
